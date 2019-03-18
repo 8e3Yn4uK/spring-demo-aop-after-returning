@@ -28,8 +28,17 @@ public class MyDemoLoggingAspect {
         System.out.println("\nExecuting @AfterReturning on method: " + theJoinPoint.getSignature().toShortString());
         System.out.println("\n" + result);
 
+        convertAccountNamesToUpperCase(result);
+
     }
 
+    private void convertAccountNamesToUpperCase(List<Account> result) {
+
+        for (Account temp : result){
+            String theUpperName = temp.getName().toUpperCase();
+            temp.setName(theUpperName);
+        }
+    }
 
 
     @Before("com.aopdemo.aspect.PointcutExpressions.forDaoPackageNoGetterSetter()")
