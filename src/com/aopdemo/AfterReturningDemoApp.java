@@ -1,26 +1,32 @@
 package com.aopdemo;
 
-import com.aopdemo.dao.MembershipDAO;
+import com.aopdemo.dao.AccountDAO;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.util.List;
 
 /**
  * Created by 8e3Yn4uK on 13.03.2019
  */
 
-public class MainDemoApp {
+public class AfterReturningDemoApp {
     public static void main(String[] args) {
 
         // read the spring config java class
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DemoConfig.class);
 
         // get the bean from the spring container
-        com.aopdemo.dao.AccountDAO theAccountDAODao = context.getBean("accountDAO", com.aopdemo.dao.AccountDAO.class);
-        MembershipDAO theMembershipDao = context.getBean("membershipDAO", MembershipDAO.class);
+        AccountDAO theAccountDAODao = context.getBean("accountDAO", AccountDAO.class);
 
-        // call the business method
-        AccountDAO myAccountDAO = new AccountDAO();
-        theAccountDAODao.addAccount(myAccountDAO, true);
-        theMembershipDao.addAccount();
+        List<Account> theAccounts = theAccountDAODao.findAccounts();
+
+        System.out.println("\n\nMain program: AfterReturningDemoApp");
+        System.out.println("--------------");
+        System.out.println(theAccounts);
+        System.out.println("\n");
+
+
+
 
         // close the context
         context.close();
